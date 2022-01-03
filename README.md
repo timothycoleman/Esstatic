@@ -13,6 +13,36 @@ spreadsheets for instant graphs.
 - use json paths to query the stats entries. aggregate and format.
 - skip/take percent entries from the stats files for quick range selection
 
+# Getting started
+
+1. cd to directory
+
+```
+PS C:\Users\timot> cd .\Downloads\qa-logs\TestRun1-node-3\
+```
+
+2. Run esstatic (provide path to esstatic if it isn't  in your path)
+
+```
+PS C:\Users\timot\Downloads\qa-logs\TestRun1-node-3> esstatic
+
+Arguments:
+  dir: .
+  include: **/*stats*.json
+  exclude:
+  skip: 0
+  take: 100
+  test: False
+
+Reading C:\Users\timot\Downloads\qa-logs\TestRun1-node-3\log-stats20211029.json... Done!
+Querying... Done!
+Copying 109,109 chars to clipboard... Done!
+```
+
+3. Paste into cell A1 of the spreadsheet and view results
+
+![Sample graphs](img/sample.png)
+
 # TODO
 
 - be able to specify a particular json path on the command line
