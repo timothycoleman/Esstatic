@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Esstatic", "src\Esstatic\Esstatic.csproj", "{1CD8C568-3661-4FEF-8431-EC61A0B5E7D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esstatic.Tests", "tests\Esstatic.Tests\Esstatic.Tests.csproj", "{ED6A92F3-A5CE-4721-BA14-2C4029C169E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{246D1907-5705-4DB9-BD35-7FEC029E4E8E}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CD8C568-3661-4FEF-8431-EC61A0B5E7D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CD8C568-3661-4FEF-8431-EC61A0B5E7D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CD8C568-3661-4FEF-8431-EC61A0B5E7D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CD8C568-3661-4FEF-8431-EC61A0B5E7D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED6A92F3-A5CE-4721-BA14-2C4029C169E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED6A92F3-A5CE-4721-BA14-2C4029C169E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED6A92F3-A5CE-4721-BA14-2C4029C169E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED6A92F3-A5CE-4721-BA14-2C4029C169E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AAE3069-30C8-4C05-BCEB-F0DD5E2E7190}
+	EndGlobalSection
+EndGlobal
