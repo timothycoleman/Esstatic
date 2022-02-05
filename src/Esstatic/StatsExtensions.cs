@@ -57,38 +57,58 @@ namespace Esstatic {
 		// evenly down sample to get desiredCount results.
 		// the entries are not combined/interpolated in any way, just selected or discarded.
 		public static T[] Scale<T>(
-			this IEnumerable<T> xsEnumerable,
+			this IEnumerable<T> input,
 			int desiredCount,
 			int skipPercent,
 			int takePercent,
 			T padding) {
 
-			var xs = xsEnumerable.ToArray();
+			var inputCount = input.Count();
 
 			// skip/take
-			var skipCount = (int)(skipPercent * 0.01 * xs.Length);
-			var takeCount = (int)(takePercent * 0.01 * xs.Length);
-			xs = xs.Skip(skipCount).Take(takeCount).ToArray();
-			
-			if (xs.Length == 0)
+			var skipCount = (int)(skipPercent * 0.01 * inputCount);
+			var takeCount = (int)(takePercent * 0.01 * inputCount);
+			var skipTake = input.Skip(skipCount).Take(takeCount);
+
+			// apply skip effect on count
+			var skipTakeCount = inputCount;
+			skipTakeCount = Math.Max(0, skipTakeCount - skipCount);
+
+			// apply take effect on count
+			skipTakeCount = Math.Min(takeCount, skipTakeCount);
+
+			if (skipTakeCount == 0)
 				throw new Exception("No stats");
 
+			// now the input has been whittled down to the range we want to sample from
+			// but there still be too many 
 			var ys = new T[desiredCount];
 
-			if (desiredCount < xs.Length) {
+			if (desiredCount < skipTakeCount) {
 				// down sample
+				var enumerator = skipTake.GetEnumerator();
+				enumerator.MoveNext();
+				var enumeratorIndex = 0;
+
 				for (var yi = 0L; yi < ys.Length; yi++) {
-					var xi = (int)(yi * xs.Length / ys.Length);
-					if (0 <= xi && xi < xs.Length)
-						ys[yi] = xs[xi];
+					var xi = (int)(yi * skipTakeCount / ys.Length);
+					while (enumeratorIndex < xi) {
+						if (!enumerator.MoveNext())
+							throw new Exception("unexpectedly ran out of things to enumerate");
+						enumeratorIndex++;
+					}
+
+					ys[yi] = enumerator.Current;
 				}
 			}
 			else {
 				// take what we have, add padding.
-				for (var i = 0; i < ys.Length; i++) {
-					ys[i] = i < xs.Length
-						? xs[i]
-						: padding;
+				var yi = 0;
+				foreach (var x in skipTake) {
+					ys[yi++] = x;
+				}
+				while (yi < ys.Length) {
+					ys[yi++] = padding;
 				}
 			}
 
