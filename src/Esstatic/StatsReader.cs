@@ -141,6 +141,12 @@ namespace Esstatic {
 						new ("$.es.queue['Storage Chaser'].idleTimePercent", "Chaser", IdlePercent),
 						new ("$.es.queue.StorageWriterQueue.idleTimePercent", "Writer", IdlePercent),
 						new ("$.es.queue['Index Committer'].idleTimePercent", "IndexCommitter", IdlePercent),
+						new ("$.es.queue['Leader Replication Service'].idleTimePercent", "Replication", IdlePercent), // todo: or 'master'
+						new ("$.es.queue.Timer.idleTimePercent", "Timer", IdlePercent),
+						new ("$.es.queue.Subscriptions.idleTimePercent", "Subscriptions", IdlePercent),
+						new ("$.es.queue.PersistentSubscriptions.idleTimePercent", "PersistentSubscriptions", IdlePercent),
+						new ("$.es.queue['Projections Leader'].idleTimePercent", "Projections Leader", IdlePercent),
+						new ("$.es.queue..[?(@.groupName == 'Projection Core')].idleTimePercent", "Projection Core Max", Min, IdlePercent),
 						new ("$.es.queue..[?(@.groupName == 'Workers')].idleTimePercent", "Workers Max", Min, IdlePercent),
 						new ("$.es.queue..[?(@.groupName == 'StorageReaderQueue')].idleTimePercent", "Readers Max", Min, IdlePercent),
 						new ("$.sys.cpu", "sys cpu", N0),
@@ -156,6 +162,12 @@ namespace Esstatic {
 						new ("$.es.queue['Storage Chaser'].length", "Chaser", N0),
 						new ("$.es.queue.StorageWriterQueue.length", "Writer", N0),
 						new ("$.es.queue['Index Committer'].length", "IndexCommitter", N0),
+						new ("$.es.queue['Leader Replication Service'].length", "Replication", N0), // todo: or 'master'
+						new ("$.es.queue.Timer.length", "Timer", N0),
+						new ("$.es.queue.Subscriptions.length", "Subscriptions", N0),
+						new ("$.es.queue.PersistentSubscriptions.length", "PersistentSubscriptions", N0),
+						new ("$.es.queue['Projections Leader'].length", "Projections Leader", N0),
+						new ("$.es.queue..[?(@.groupName == 'Projection Core')].length", "Projection Core Max", Max, N0),
 						new ("$.es.queue..[?(@.groupName == 'Workers')].length", "Workers Max", Max, N0),
 						new ("$.es.queue..[?(@.groupName == 'StorageReaderQueue')].length", "Readers Max", Max, N0),
 					},
@@ -168,18 +180,17 @@ namespace Esstatic {
 						new ("$.es.queue['Storage Chaser'].avgProcessingTime", "Chaser"),
 						new ("$.es.queue.StorageWriterQueue.avgProcessingTime", "Writer"),
 						new ("$.es.queue['Index Committer'].avgProcessingTime", "IndexCommitter"),
+						new ("$.es.queue['Leader Replication Service'].avgProcessingTime", "Replication", N0), // todo: or 'master'
+						new ("$.es.queue.Timer.avgProcessingTime", "Timer", N0),
+						new ("$.es.queue.Subscriptions.avgProcessingTime", "Subscriptions", N0),
+						new ("$.es.queue.PersistentSubscriptions.avgProcessingTime", "PersistentSubscriptions", N0),
+						new ("$.es.queue['Projections Leader'].avgProcessingTime", "Projections Leader", N0),
+						new ("$.es.queue..[?(@.groupName == 'Projection Core')].avgProcessingTime", "Projection Core Max", Max, N0),
 						new ("$.es.queue..[?(@.groupName == 'Workers')].avgProcessingTime", "Workers Max", Max),
 						new ("$.es.queue..[?(@.groupName == 'StorageReaderQueue')].avgProcessingTime", "Readers Max", Max),
 					})
 				.CopyToClipBoard();
 
-				// other queues we might want to graph
-				// queue "Master Replication Service" or "Leader Replication Service"
-				// queue "Timer"
-				// queue "PersistentSubscriptions"
-				// projections only available in more recent versions possibly
-				//new ("$.es.queue.Projection Core #0.idleTimePercent", "Projections0", IdlePercent),
-				//new ("$.es.queue.Projections Leader.idleTimePercent", "ProjectionsLeader", IdlePercent),
 		}
 
 		static IEnumerable<string> ReadLines(string path) {
