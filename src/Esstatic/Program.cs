@@ -15,6 +15,7 @@ namespace Esstatic {
 			string exclude = null,
 			float skip = 0,
 			float take = 100,
+			string query = "",
 			bool test = false) {
 
 			Console.WriteLine("");
@@ -24,6 +25,7 @@ namespace Esstatic {
 			Console.WriteLine("  exclude: {0}", exclude);
 			Console.WriteLine("  skip: {0}", skip);
 			Console.WriteLine("  take: {0}", take);
+			Console.WriteLine("  query: {0}", query);
 			Console.WriteLine("  test: {0}", test);
 			Console.WriteLine("");
 
@@ -40,7 +42,7 @@ namespace Esstatic {
 				foreach (var file in files)
 					Console.WriteLine(" - " + file);
 			} else {
-				new StatsReader().GetStats(files, skip, take);
+				new StatsReader().GetStats(files, skip, take, query);
 			}
 
 			Console.WriteLine("");

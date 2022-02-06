@@ -41,30 +41,32 @@ namespace Esstatic {
 
 		SeriesSpec Placeholder(string name) => new("", name, x => "");
 
-		public void GetStats(IEnumerable<string> files, float skipPercent, float takePercent) {
+		public void GetStats
+			(IEnumerable<string> files,
+			float skipPercent,
+			float takePercent,
+			string query) {
+
 			// for sorting padding to the end so that deltas work properly
 			var bigDate = JToken.Parse("\"9999-01-01T00:00:00.0000000Z\"");
 
-			files
-				.SelectMany(ReadLines)
-				.Scale(
-					desiredCount: 200,
-					skipPercent: skipPercent,
-					takePercent: takePercent,
-					padding: "{}")
-				.Select(JObject.Parse)
-				.OrderBy(x => x.StatsRoot()["timestamp"] ?? bigDate)
-				.QueryStats(
+			var commandLineSpecs = new List<List<SeriesSpec>>();
+			if (!string.IsNullOrEmpty(query))
+				commandLineSpecs.Add(
+					new List<SeriesSpec> {
+						new ("$.timestamp", "timestamp"),
+						new (query, "Query", N0),
+					});
+
+			var defaultSpecs = new List<SeriesSpec>[] {
 					// timeline check
-					new List<SeriesSpec>
-					{
+				new List<SeriesSpec> {
 						new ("$.timestamp", "entry", Counter()),
 						new ("$.timestamp", "timestamp"),
 					},
 
 					// restart detector
-					new List<SeriesSpec>
-					{
+				new List<SeriesSpec> {
 						new ("$.timestamp", "restarts"),
 						new ("$.proc.startTime", "startTime"),
 						// pid check, in case we accidentally graph two processes for the same period
@@ -191,6 +193,23 @@ namespace Esstatic {
 						new ("$.es.queue..[?(@.groupName == 'Projection Core')].avgProcessingTime", "Projection Core Max", Max, N0),
 						new ("$.es.queue..[?(@.groupName == 'Workers')].avgProcessingTime", "Workers Max", Max),
 						new ("$.es.queue..[?(@.groupName == 'StorageReaderQueue')].avgProcessingTime", "Readers Max", Max),
+				}
+			};
+
+			files
+				.SelectMany(ReadLines)
+				.Scale(
+					desiredCount: 200,
+					skipPercent: skipPercent,
+					takePercent: takePercent,
+					padding: "{}")
+				.Select(JObject.Parse)
+				.OrderBy(x => x.StatsRoot()["timestamp"] ?? bigDate)
+				.QueryStats(commandLineSpecs.Any() ? commandLineSpecs.ToArray() : defaultSpecs)
+				.Pipe(x => {
+					if (commandLineSpecs.Any())
+						Console.WriteLine(x.Trim());
+					return x;
 					})
 				.CopyToClipBoard();
 
