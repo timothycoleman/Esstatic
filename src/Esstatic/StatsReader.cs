@@ -41,7 +41,7 @@ namespace Esstatic {
 
 		SeriesSpec Placeholder(string name) => new("", name, x => "");
 
-		public void GetStats(IEnumerable<string> files, int skipPercent, int takePercent) {
+		public void GetStats(IEnumerable<string> files, float skipPercent, float takePercent) {
 			files
 				.SelectMany(ReadLines)
 				.Scale(

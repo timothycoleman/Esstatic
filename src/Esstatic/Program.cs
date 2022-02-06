@@ -13,8 +13,8 @@ namespace Esstatic {
 			string dir = ".",
 			string include = "**/*stats*.json",
 			string exclude = null,
-			int skip = 0,
-			int take = 100,
+			float skip = 0,
+			float take = 100,
 			bool test = false) {
 
 			Console.WriteLine("");

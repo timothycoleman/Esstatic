@@ -59,8 +59,8 @@ namespace Esstatic {
 		public static T[] Scale<T>(
 			this IEnumerable<T> input,
 			int desiredCount,
-			int skipPercent,
-			int takePercent,
+			float skipPercent,
+			float takePercent,
 			T padding) {
 
 			var inputCount = input.Count();
