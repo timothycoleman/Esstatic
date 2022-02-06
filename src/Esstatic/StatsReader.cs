@@ -42,6 +42,9 @@ namespace Esstatic {
 		SeriesSpec Placeholder(string name) => new("", name, x => "");
 
 		public void GetStats(IEnumerable<string> files, float skipPercent, float takePercent) {
+			// for sorting padding to the end so that deltas work properly
+			var bigDate = JToken.Parse("\"9999-01-01T00:00:00.0000000Z\"");
+
 			files
 				.SelectMany(ReadLines)
 				.Scale(
@@ -50,7 +53,7 @@ namespace Esstatic {
 					takePercent: takePercent,
 					padding: "{}")
 				.Select(JObject.Parse)
-				.OrderBy(x => x.StatsRoot()["timestamp"])
+				.OrderBy(x => x.StatsRoot()["timestamp"] ?? bigDate)
 				.QueryStats(
 					// timeline check
 					new List<SeriesSpec>
