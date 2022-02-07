@@ -45,18 +45,19 @@ namespace Esstatic {
 			(IEnumerable<string> files,
 			float skipPercent,
 			float takePercent,
-			string query) {
+			string[] query) {
 
 			// for sorting padding to the end so that deltas work properly
 			var bigDate = JToken.Parse("\"9999-01-01T00:00:00.0000000Z\"");
 
 			var commandLineSpecs = new List<List<SeriesSpec>>();
-			if (!string.IsNullOrEmpty(query))
-				commandLineSpecs.Add(
-					new List<SeriesSpec> {
-						new ("$.timestamp", "timestamp"),
-						new (query, "Query", N0),
-					});
+			var commandLineSpec = new List<SeriesSpec> {
+				new ("$.timestamp", "timestamp"),
+			};
+			commandLineSpecs.Add(commandLineSpec);
+			for (var i = 0; i < query.Length; i++) {
+				commandLineSpec.Add(new (query[i], $"Query{i}", N0));
+			}
 
 			var defaultSpecs = new List<SeriesSpec>[] {
 				// timeline check
@@ -254,9 +255,9 @@ namespace Esstatic {
 					padding: "{}")
 				.Select(JObject.Parse)
 				.OrderBy(x => x.StatsRoot()["timestamp"] ?? bigDate)
-				.QueryStats(commandLineSpecs.Any() ? commandLineSpecs.ToArray() : defaultSpecs)
+				.QueryStats(query.Length > 0 ? commandLineSpecs.ToArray() : defaultSpecs)
 				.Pipe(x => {
-					if (commandLineSpecs.Any())
+					if (query.Length > 0)
 						Console.WriteLine(x.Trim());
 					return x;
 				})

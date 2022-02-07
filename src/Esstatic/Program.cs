@@ -15,8 +15,10 @@ namespace Esstatic {
 			string exclude = null,
 			float skip = 0,
 			float take = 100,
-			string query = "",
+			string[] query = null,
 			bool test = false) {
+
+			query ??= Array.Empty<string>();
 
 			Console.WriteLine("");
 			Console.WriteLine("Arguments:");
@@ -25,7 +27,10 @@ namespace Esstatic {
 			Console.WriteLine("  exclude: {0}", exclude);
 			Console.WriteLine("  skip: {0}", skip);
 			Console.WriteLine("  take: {0}", take);
-			Console.WriteLine("  query: {0}", query);
+			Console.WriteLine("  query:");
+			foreach (var q in query)
+				Console.WriteLine("    {0}", q);
+
 			Console.WriteLine("  test: {0}", test);
 			Console.WriteLine("");
 
