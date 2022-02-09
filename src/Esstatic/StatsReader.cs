@@ -230,17 +230,17 @@ namespace Esstatic {
 				// avg processing time per message
 				new List<SeriesSpec> {
 					new ("$.timestamp", "Avg Processing Time when active"),
-					new ("$.es.queue.MainQueue.avgProcessingTime", "MainQueue", N0),
-					new ("$.es.queue.MonitoringQueue.avgProcessingTime", "Monitoring", N0),
-					new ("$.es.queue['Storage Chaser'].avgProcessingTime", "Chaser", N0),
-					new ("$.es.queue.StorageWriterQueue.avgProcessingTime", "Writer", N0),
-					new ("$.es.queue['Index Committer'].avgProcessingTime", "IndexCommitter", N0),
-					new ("$.es.queue['Leader Replication Service'].avgProcessingTime", "Replication", N0), // todo: or 'master'
-					new ("$.es.queue.Timer.avgProcessingTime", "Timer", N0),
-					new ("$.es.queue.Subscriptions.avgProcessingTime", "Subscriptions", N0),
-					new ("$.es.queue.PersistentSubscriptions.avgProcessingTime", "PersistentSubscriptions", N0),
-					new ("$.es.queue['Projections Leader'].avgProcessingTime", "Projections Leader", N0),
-					new ("$.es.queue..[?(@.groupName == 'Projection Core')].avgProcessingTime", "Projection Core Max", Max, N0),
+					new ("$.es.queue.MainQueue.avgProcessingTime", "MainQueue"),
+					new ("$.es.queue.MonitoringQueue.avgProcessingTime", "Monitoring"),
+					new ("$.es.queue['Storage Chaser'].avgProcessingTime", "Chaser"),
+					new ("$.es.queue.StorageWriterQueue.avgProcessingTime", "Writer"),
+					new ("$.es.queue['Index Committer'].avgProcessingTime", "IndexCommitter"),
+					new ("$.es.queue['Leader Replication Service'].avgProcessingTime", "Replication"), // todo: or 'master'
+					new ("$.es.queue.Timer.avgProcessingTime", "Timer"),
+					new ("$.es.queue.Subscriptions.avgProcessingTime", "Subscriptions"),
+					new ("$.es.queue.PersistentSubscriptions.avgProcessingTime", "PersistentSubscriptions"),
+					new ("$.es.queue['Projections Leader'].avgProcessingTime", "Projections Leader"),
+					new ("$.es.queue..[?(@.groupName == 'Projection Core')].avgProcessingTime", "Projection Core Max", Max),
 					new ("$.es.queue..[?(@.groupName == 'Workers')].avgProcessingTime", "Workers Max", Max),
 					new ("$.es.queue..[?(@.groupName == 'StorageReaderQueue')].avgProcessingTime", "Readers Max", Max),
 				},
