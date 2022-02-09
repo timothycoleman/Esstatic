@@ -193,20 +193,20 @@ namespace Esstatic {
 
 				// queue length
 				new List<SeriesSpec> {
-					new ("$.timestamp", "queue length"),
-					new ("$.es.queue.MainQueue.length", "MainQueue", N0),
-					new ("$.es.queue.MonitoringQueue.length", "Monitoring", N0),
-					new ("$.es.queue['Storage Chaser'].length", "Chaser", N0),
-					new ("$.es.queue.StorageWriterQueue.length", "Writer", N0),
-					new ("$.es.queue['Index Committer'].length", "IndexCommitter", N0),
-					new ("$.es.queue['Leader Replication Service'].length", "Replication", N0), // todo: or 'master'
-					new ("$.es.queue.Timer.length", "Timer", N0),
-					new ("$.es.queue.Subscriptions.length", "Subscriptions", N0),
-					new ("$.es.queue.PersistentSubscriptions.length", "PersistentSubscriptions", N0),
-					new ("$.es.queue['Projections Leader'].length", "Projections Leader", N0),
-					new ("$.es.queue..[?(@.groupName == 'Projection Core')].length", "Projection Core Max", Max, N0),
-					new ("$.es.queue..[?(@.groupName == 'Workers')].length", "Workers Max", Max, N0),
-					new ("$.es.queue..[?(@.groupName == 'StorageReaderQueue')].length", "Readers Max", Max, N0),
+					new ("$.timestamp", "queue lengthCurrentTryPeak"),
+					new ("$.es.queue.MainQueue.lengthCurrentTryPeak", "MainQueue", N0),
+					new ("$.es.queue.MonitoringQueue.lengthCurrentTryPeak", "Monitoring", N0),
+					new ("$.es.queue['Storage Chaser'].lengthCurrentTryPeak", "Chaser", N0),
+					new ("$.es.queue.StorageWriterQueue.lengthCurrentTryPeak", "Writer", N0),
+					new ("$.es.queue['Index Committer'].lengthCurrentTryPeak", "IndexCommitter", N0),
+					new ("$.es.queue['Leader Replication Service'].lengthCurrentTryPeak", "Replication", N0), // todo: or 'master'
+					new ("$.es.queue.Timer.lengthCurrentTryPeak", "Timer", N0),
+					new ("$.es.queue.Subscriptions.lengthCurrentTryPeak", "Subscriptions", N0),
+					new ("$.es.queue.PersistentSubscriptions.lengthCurrentTryPeak", "PersistentSubscriptions", N0),
+					new ("$.es.queue['Projections Leader'].lengthCurrentTryPeak", "Projections Leader", N0),
+					new ("$.es.queue..[?(@.groupName == 'Projection Core')].lengthCurrentTryPeak", "Projection Core Max", Max, N0),
+					new ("$.es.queue..[?(@.groupName == 'Workers')].lengthCurrentTryPeak", "Workers Max", Max, N0),
+					new ("$.es.queue..[?(@.groupName == 'StorageReaderQueue')].lengthCurrentTryPeak", "Readers Max", Max, N0),
 				},
 
 				// avgItemsPerSecond
